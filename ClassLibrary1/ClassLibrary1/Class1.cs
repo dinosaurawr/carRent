@@ -6,6 +6,30 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
+
+    public class ConsoleHandler
+    {
+        public void MainMenu()
+        {
+            Console.WriteLine("1) book car \n2) exit");
+        }
+
+        public void CarRenting(CarRepo carRepo)
+        {
+            Console.WriteLine("choose model(write down model name):");
+
+            for (int i=1; i<carRepo.GetAllModels().Count(); i++)
+            {
+                Console.WriteLine($"{i}) {carRepo.GetAllModels()[i - 1]}");
+            }
+
+            string choosedModel = Console.ReadLine().ToLower();
+
+            Console.WriteLine("enter start date");
+            DateTime startDate = Console.ReadLine();
+        }
+    }
+
     public class Car
     {
         public int Id { private set; get; }
@@ -16,7 +40,7 @@ namespace ClassLibrary1
         public Car(int id, string modelname)
         {
             Id = id;
-            ModelName = modelname;
+            ModelName = modelname.ToLower();
         }
 
     }
@@ -65,6 +89,10 @@ namespace ClassLibrary1
 
             if (isEmpty)
             {
+                foreach (var date in dates)
+                {
+                    car.BookedDates.Add(date);
+                }
                 Console.WriteLine("car booked");
             }
             else
@@ -89,6 +117,19 @@ namespace ClassLibrary1
             CarList = new List<Car>();
         }
 
+        public List<string> GetAllModels()
+        {
+            List<string> allModels = new List<string>();
+
+            foreach(var car in CarList)
+            {
+                allModels.Add(car.ModelName);
+            }
+
+            return allModels;
+
+        }
+
         public Car GetCarById(int id)
         {
             foreach (Car car in CarList)
@@ -102,10 +143,20 @@ namespace ClassLibrary1
             return null;
         }
 
-        public void AddCarToList(int id, string modelName)
+        public void DeleteCar(Car car)
         {
-            
+            CarList.Remove(car);
         }
 
+        public void AddCarToList(int id, string modelName)
+        {
+            Car car = new Car(id, modelName);
+            CarList.Add(car);
+        }
+
+        public void Update()
+        {
+
+        }
     }
 }
