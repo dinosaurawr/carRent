@@ -80,8 +80,32 @@ namespace ClassLibrary1
 
     }
 
-    public class CarRegistry
+    public class CarRepo
     {
-        public List<Car> CarList;
+        private List<Car> CarList;
+        
+        public CarRepo()
+        {
+            CarList = new List<Car>();
+        }
+
+        public Car GetCarById(int id)
+        {
+            foreach (Car car in CarList)
+            {
+                if (car.Id == id)
+                {
+                    return car;
+                }
+            }
+
+            return null;
+        }
+
+        public void AddCarToList(int id, string modelName)
+        {
+            
+        }
+
     }
 }
