@@ -24,23 +24,30 @@ namespace ClassLibrary1
         }
 
         public void CarRenting(CarRepo carRepo)
-        {
-            Console.WriteLine("choose model(write down model name):");
+        { 
 
-            for (int i=1; i<carRepo.GetAllModels().Count(); i++)
-            {
-                Console.WriteLine($"{i}) {carRepo.GetAllModels()[i - 1]}");
-            }
-
-            string choosedModel = Console.ReadLine().ToLower();
-
-            Console.WriteLine("enter start date dd/mm/yyyy");
+            Console.WriteLine("enter start date dd.mm.yyyy");
             string input = Console.ReadLine();
             DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime startDate);
 
-            Console.WriteLine("enter end date dd/mm/yyyy");
+            Console.WriteLine("enter end date dd.mm.yyyy");
             input = Console.ReadLine();
             DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime endDate);
+
+            CarManager carManager = new CarManager();
+
+            List<DateTime> dates = carManager.GetDatesBetween(startDate, endDate);
+            Console.WriteLine("your choosed dates:");
+            foreach(var date in dates)
+            {
+                Console.WriteLine(date.ToShortDateString());
+            }
+            carRepo.WriteAllCars();
+
+            Console.WriteLine("write car id:");
+
+            int choosedId = Convert.ToInt32(Console.ReadLine());
+            Console.ReadKey();
         }
     }
 
@@ -113,7 +120,7 @@ namespace ClassLibrary1
             {
                 List<DateTime> crossings = CheckCarForOccupyInDates(car, dates);
                 Console.WriteLine("Car is booked on this dates:");
-                foreach (var date in dates)
+                foreach (var date in crossings)
                 {
                     Console.WriteLine(date.ToShortDateString());
                 }
@@ -142,6 +149,15 @@ namespace ClassLibrary1
 
             return allModels;
 
+        }
+
+        //debug method
+        public void WriteAllCars()
+        {
+            foreach(var car in CarList)
+            {
+                Console.WriteLine($"Car id: {car.Id}\nCar model name: {car.ModelName}");
+            }
         }
 
         public List<Car> GetCarsByModel(string modelName)
