@@ -16,7 +16,11 @@ namespace carRent
 
             carRepo.AddCarToList(1, "nissan");
 
-            consoleHandler.MainMenu(carRepo);
+            do
+            {
+                consoleHandler.MainMenu(carRepo);
+            } while (true);
+            
         }
     }
 }

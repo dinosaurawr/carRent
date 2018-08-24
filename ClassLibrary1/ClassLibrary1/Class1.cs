@@ -47,6 +47,8 @@ namespace ClassLibrary1
             Console.WriteLine("write car id:");
 
             int choosedId = Convert.ToInt32(Console.ReadLine());
+
+            carManager.RentCarForDates(carRepo.GetCarById(choosedId), dates);
             Console.ReadKey();
         }
     }
@@ -60,6 +62,7 @@ namespace ClassLibrary1
         //constructor
         public Car(int id, string modelname)
         {
+            BookedDates = new List<DateTime>();
             Id = id;
             ModelName = modelname.ToLower();
         }
