@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,17 @@ namespace ClassLibrary1
 
     public class ConsoleHandler
     {
-        public void MainMenu()
+        public void MainMenu(CarRepo carRepo)
         {
             Console.WriteLine("1) book car \n2) exit");
+            if (Convert.ToInt32(Console.ReadLine()) == 1)
+            {
+                CarRenting(carRepo);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
 
         public void CarRenting(CarRepo carRepo)
@@ -25,8 +34,13 @@ namespace ClassLibrary1
 
             string choosedModel = Console.ReadLine().ToLower();
 
-            Console.WriteLine("enter start date");
-            DateTime startDate = Console.ReadLine();
+            Console.WriteLine("enter start date dd/mm/yyyy");
+            string input = Console.ReadLine();
+            DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime startDate);
+
+            Console.WriteLine("enter end date dd/mm/yyyy");
+            input = Console.ReadLine();
+            DateTime.TryParseExact(input, "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime endDate);
         }
     }
 
@@ -128,6 +142,23 @@ namespace ClassLibrary1
 
             return allModels;
 
+        }
+
+        public List<Car> GetCarsByModel(string modelName)
+        {
+            List<Car> cars = new List<Car>();
+            foreach (var car in CarList)
+            {
+                if(car.ModelName == modelName)
+                {
+                    cars.Add(car);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return cars;
         }
 
         public Car GetCarById(int id)
