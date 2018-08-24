@@ -8,18 +8,18 @@ namespace ClassLibrary1
 {
     public class CarRepo
     {
-        private List<Car> CarList;
+        private List<Car> сarList;
 
         public CarRepo()
         {
-            CarList = new List<Car>();
+            сarList = new List<Car>();
         }
 
         public List<string> GetAllModels()
         {
             List<string> allModels = new List<string>();
 
-            foreach (var car in CarList)
+            foreach (var car in сarList)
             {
                 allModels.Add(car.ModelName);
             }
@@ -30,7 +30,7 @@ namespace ClassLibrary1
 
         public void WriteAllCars()
         {
-            foreach (var car in CarList)
+            foreach (var car in сarList)
             {
                 Console.WriteLine($"Car id: {car.Id}\nCar model name: {car.ModelName}");
             }
@@ -39,7 +39,7 @@ namespace ClassLibrary1
         public List<Car> GetCarsByModel(string modelName)
         {
             List<Car> cars = new List<Car>();
-            foreach (var car in CarList)
+            foreach (var car in сarList)
             {
                 if (car.ModelName == modelName)
                 {
@@ -55,26 +55,20 @@ namespace ClassLibrary1
 
         public Car GetCarById(int id)
         {
-            foreach (Car car in CarList)
-            {
-                if (car.Id == id)
-                {
-                    return car;
-                }
-            }
+            var car = ca
+            return carList.FirstOrDefault(c => c.Id == id);
 
-            return null;
         }
 
         public void DeleteCar(Car car)
         {
-            CarList.Remove(car);
+            сarList.Remove(car);
         }
 
         public void AddCarToList(int id, string modelName)
         {
             Car car = new Car(id, modelName);
-            CarList.Add(car);
+            сarList.Add(car);
         }
 
         public void Update()

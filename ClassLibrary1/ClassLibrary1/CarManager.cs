@@ -13,8 +13,9 @@ namespace ClassLibrary1
         {
             if (endDate < startDate)
             {
-                return null;
+                throw new ArgumentException();
             }
+            
 
             List<DateTime> allDates = new List<DateTime>();
 
@@ -27,19 +28,9 @@ namespace ClassLibrary1
         }
 
         public List<DateTime> CheckCarForOccupyInDates(Car car, List<DateTime> datesFromUser)
-        {
-            List<DateTime> crossings = new List<DateTime>();
+        { 
 
-            foreach (var date in datesFromUser)
-            {
-                foreach (var dateOccupied in car.BookedDates)
-                {
-                    if (date == dateOccupied)
-                    {
-                        crossings.Add(date);
-                    }
-                }
-            }
+            var crossings = datesFromUser.Intersect(car.BookedDates).ToList();
 
             return crossings;
         }
