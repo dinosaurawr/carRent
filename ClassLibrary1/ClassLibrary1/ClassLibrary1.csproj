@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="CarManager.cs" />
     <Compile Include="CarRepo.cs" />
-    <Compile Include="ConsoleHandler.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

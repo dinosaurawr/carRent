@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-
+    //поменять кар на айди и искать по айди машину в репо (done)
     public class CarManager
     {
+
         public List<DateTime> GetDatesBetween(DateTime startDate, DateTime endDate)
         {
             if (endDate < startDate)
@@ -26,21 +27,55 @@ namespace ClassLibrary1
 
             return allDates;
         }
+        
+        public bool IsBooked(int carId, CarRepo cR, List<DateTime> datesFromUser)
+        {
+            Car car = cR.GetCarById(carId);
 
-        public List<DateTime> CheckCarForOccupyInDates(Car car, List<DateTime> datesFromUser)
-        { 
+            if (datesFromUser.Intersect(car.BookedDates).ToList().Any())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
+        public List<string> GetCarsNotBookedOnThisDates(CarRepo cR, List<DateTime> dates)
+        {
+            List<string> cars = new List<string>();
+            int[] IDs = cR.GetAllIDs();
+            foreach (int id in IDs)
+            {
+                Car car = cR.GetCarById(id);
+
+                if (!this.IsBooked(id, cR, dates)) {
+                    cars.Add($"Id:{id}\nmodel:{car.ModelName}");
+                }
+                else
+                {
+                    continue;
+                }
+                
+            }
+            return cars;
+        }
+
+        public List<DateTime> GetCrossingDates(int carId, CarRepo cR, List<DateTime> datesFromUser)
+        {
+            Car car = cR.GetCarById(carId);
             var crossings = datesFromUser.Intersect(car.BookedDates).ToList();
 
             return crossings;
         }
 
 
-        public void RentCarForDates(Car car, List<DateTime> dates)
+        public void RentCarForDates(int carId, CarRepo cR, List<DateTime> dates)
         {
-            bool isEmpty = !CheckCarForOccupyInDates(car, dates).Any();
+            Car car = cR.GetCarById(carId);
 
-            if (isEmpty)
+            if (!IsBooked(carId, cR, dates))
             {
                 foreach (var date in dates)
                 {
@@ -50,7 +85,7 @@ namespace ClassLibrary1
             }
             else
             {
-                List<DateTime> crossings = CheckCarForOccupyInDates(car, dates);
+                List<DateTime> crossings = GetCrossingDates(carId, cR, dates);
                 Console.WriteLine("Car is booked on this dates:");
                 foreach (var date in crossings)
                 {
