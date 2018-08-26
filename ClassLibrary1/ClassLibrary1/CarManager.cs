@@ -12,7 +12,7 @@ namespace ClassLibrary1
 
         public List<DateTime> GetDatesBetween(DateTime startDate, DateTime endDate)
         {
-            if (endDate < startDate)
+            if (endDate < startDate | startDate<DateTime.Now)
             {
                 throw new ArgumentException();
             }
