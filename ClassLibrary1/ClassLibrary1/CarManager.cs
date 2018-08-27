@@ -9,6 +9,11 @@ namespace ClassLibrary1
     //поменять кар на айди и искать по айди машину в репо (done)
     public class CarManager
     {
+        private readonly CarRepo carRepo;
+        public CarManager(CarRepo _carRepo)
+        {
+            carRepo = _carRepo;
+        }
 
         public List<DateTime> GetDatesBetween(DateTime startDate, DateTime endDate)
         {
@@ -28,9 +33,9 @@ namespace ClassLibrary1
             return allDates;
         }
         
-        public bool IsBooked(int carId, CarRepo cR, List<DateTime> datesFromUser)
+        public bool IsBooked(int carId, List<DateTime> datesFromUser)
         {
-            Car car = cR.GetCarById(carId);
+            Car car = carRepo.GetCarById(carId);
 
             if (datesFromUser.Intersect(car.BookedDates).ToList().Any())
             {
@@ -42,15 +47,15 @@ namespace ClassLibrary1
             }
         }
 
-        public List<string> GetCarsNotBookedOnThisDates(CarRepo cR, List<DateTime> dates)
+        public List<string> GetCarsNotBookedOnThisDates(List<DateTime> dates)
         {
             List<string> cars = new List<string>();
-            int[] IDs = cR.GetAllIDs();
+            int[] IDs = carRepo.GetAllIDs();
             foreach (int id in IDs)
             {
-                Car car = cR.GetCarById(id);
+                Car car = carRepo.GetCarById(id);
 
-                if (!this.IsBooked(id, cR, dates)) {
+                if (!this.IsBooked(id, dates)) {
                     cars.Add($"Id:{id}\nmodel:{car.ModelName}");
                 }
                 else
@@ -62,20 +67,20 @@ namespace ClassLibrary1
             return cars;
         }
 
-        public List<DateTime> GetCrossingDates(int carId, CarRepo cR, List<DateTime> datesFromUser)
+        public List<DateTime> GetCrossingDates(int carId, List<DateTime> datesFromUser)
         {
-            Car car = cR.GetCarById(carId);
+            Car car = carRepo.GetCarById(carId);
             var crossings = datesFromUser.Intersect(car.BookedDates).ToList();
 
             return crossings;
         }
 
 
-        public void RentCarForDates(int carId, CarRepo cR, List<DateTime> dates)
+        public void RentCarForDates(int carId, List<DateTime> dates)
         {
-            Car car = cR.GetCarById(carId);
+            Car car = carRepo.GetCarById(carId);
 
-            if (!IsBooked(carId, cR, dates))
+            if (!IsBooked(carId, dates))
             {
                 foreach (var date in dates)
                 {
@@ -85,7 +90,7 @@ namespace ClassLibrary1
             }
             else
             {
-                List<DateTime> crossings = GetCrossingDates(carId, cR, dates);
+                List<DateTime> crossings = GetCrossingDates(carId, dates);
                 Console.WriteLine("Car is booked on this dates:");
                 foreach (var date in crossings)
                 {
