@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1
 {
-    public class CarRepo : ICarRepository
+    public class CarRepo
     {
         private List<Car> carList;
 
@@ -30,9 +30,7 @@ namespace ClassLibrary1
 
         public Car GetCarById(int id)
         {
-            var car = carList;
             return carList.FirstOrDefault(c => c.Id == id);
-
         }
 
         public int[] GetAllIDs()
@@ -51,6 +49,10 @@ namespace ClassLibrary1
             carList.Add(car);
         }
 
+        public void LoadData()
+        {
+
+        }
         public void Update()
         {
 

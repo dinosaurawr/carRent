@@ -12,6 +12,8 @@ namespace ClassLibrary1
         void DeleteCar(int id);
         int[] GetAllIDs();
         Car GetCarById(int id);
-        void Update();
+        void SerializeAndWrite(List<Car> cars);
+        List<Car> DeserializeAndGetList();
+        void Update(Car car);
     }
 }

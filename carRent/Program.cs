@@ -11,8 +11,7 @@ namespace carRent
     {
         static void Main(string[] args)
         {
-
-            ICarRepository carRepo = new CarRepo();
+            ICarRepository carRepo = new LocalRepo();
             CarManager carManager = new CarManager(carRepo);
 
             //debug method
@@ -20,11 +19,14 @@ namespace carRent
             {
                 Random rnd = new Random();
                 string[] carModelNames = new string[5] { "nissan", "toyota", "land rover", "tesla", "volkswagen" };
+                List<Car> cars = new List<Car>();
 
                 for (int i = 1; i < 10; i++)
                 {
-                    carRepo.AddCarToList(i, carModelNames[rnd.Next(0, 4)]);
+                    cars.Add(new Car(i, carModelNames[rnd.Next(0, 4)]));
                 }
+
+                carRepo.SerializeAndWrite(cars);
             }
             //calling debug method
             FillWithCars();

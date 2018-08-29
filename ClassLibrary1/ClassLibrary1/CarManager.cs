@@ -78,7 +78,7 @@ namespace ClassLibrary1
 
         public void RentCarForDates(int carId, List<DateTime> dates)
         {
-            Car car = carRepo.GetCarById(carId);
+             var car = carRepo.GetCarById(carId);
 
             if (!IsBooked(carId, dates))
             {
@@ -86,6 +86,7 @@ namespace ClassLibrary1
                 {
                     car.BookedDates.Add(date);
                 }
+                carRepo.Update(car);
                 Console.WriteLine("car booked");
             }
             else
