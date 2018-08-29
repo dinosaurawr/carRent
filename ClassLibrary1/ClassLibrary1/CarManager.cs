@@ -9,10 +9,10 @@ namespace ClassLibrary1
     //поменять кар на айди и искать по айди машину в репо (done)
     public class CarManager
     {
-        private readonly CarRepo carRepo;
-        public CarManager(CarRepo _carRepo)
+        private readonly ICarRepository carRepo;
+        public CarManager(ICarRepository repo)
         {
-            carRepo = _carRepo;
+            carRepo = repo;
         }
 
         public List<DateTime> GetDatesBetween(DateTime startDate, DateTime endDate)
