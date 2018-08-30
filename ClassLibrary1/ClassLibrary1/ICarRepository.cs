@@ -14,7 +14,7 @@ namespace ClassLibrary1
         Car GetCarById(int id);
 
         string ReadData(string path);
-        void UpdateData(string newData, string path);
+        void UpdateData(List<Car> newList, string path);
 
         string Serialize(List<Car> cars);
         List<Car> Deserialize(string json);

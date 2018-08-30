@@ -18,7 +18,7 @@ namespace ClassLibrary1
 
             cars.Add(car);
 
-            this.UpdateData(this.Serialize(cars), CarManager.path);
+            this.UpdateData(cars, CarManager.path);
         }
 
         public void DeleteCarFromList(Car car)
@@ -28,7 +28,7 @@ namespace ClassLibrary1
 
             cars.Remove(car);
 
-            this.UpdateData(this.Serialize(cars), CarManager.path);
+            this.UpdateData(cars, CarManager.path);
         }
 
         public Car GetCarById(int id)
@@ -47,11 +47,17 @@ namespace ClassLibrary1
             }
         }
 
-        public void UpdateData(string newData, string path)
+        public void UpdateData(List<Car> newList, string path)
         {
+            var oldList = this.Deserialize(this.ReadData(path));
+
+            var union = newList.Union(oldList).ToList();
+
+            string toWrite = this.Serialize(union);
+
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
             {
-                sw.WriteLine(newData);
+                sw.WriteLine(toWrite);
             }
         }
 

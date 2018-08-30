@@ -84,7 +84,7 @@ namespace ClassLibrary1
                 }
             }
 
-            carRepo.UpdateData(carRepo.Serialize(cars), path);
+            carRepo.UpdateData(cars, path);
         }
 
     }
