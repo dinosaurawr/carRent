@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CarManager.cs" />
-    <Compile Include="CarRepo.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="ICarRepository.cs" />
     <Compile Include="LocalRepo.cs" />

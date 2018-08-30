@@ -1,1 +1,107 @@
-[{"BookedDates":[],"Id":1,"ModelName":"land rover"},{"BookedDates":[],"Id":2,"ModelName":"toyota"},{"BookedDates":[],"Id":3,"ModelName":"nissan"},{"BookedDates":[],"Id":4,"ModelName":"land rover"},{"BookedDates":[],"Id":5,"ModelName":"nissan"},{"BookedDates":[],"Id":6,"ModelName":"nissan"},{"BookedDates":[],"Id":7,"ModelName":"toyota"},{"BookedDates":[],"Id":8,"ModelName":"toyota"},{"BookedDates":[],"Id":9,"ModelName":"nissan"}]
+[
+  {
+    "BookedDates": [],
+    "Id": 1,
+    "ModelName": "land rover"
+  },
+  {
+    "BookedDates": [],
+    "Id": 2,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [],
+    "Id": 3,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [],
+    "Id": 4,
+    "ModelName": "land rover"
+  },
+  {
+    "BookedDates": [],
+    "Id": 5,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [],
+    "Id": 6,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [
+      "2018-10-23T00:00:00",
+      "2018-10-24T00:00:00",
+      "2018-10-25T00:00:00",
+      "2018-10-26T00:00:00"
+    ],
+    "Id": 7,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [],
+    "Id": 8,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [],
+    "Id": 9,
+    "ModelName": "nissan"
+  }
+]
+[
+  {
+    "BookedDates": [],
+    "Id": 1,
+    "ModelName": "land rover"
+  },
+  {
+    "BookedDates": [],
+    "Id": 2,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [],
+    "Id": 3,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [],
+    "Id": 4,
+    "ModelName": "land rover"
+  },
+  {
+    "BookedDates": [],
+    "Id": 5,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [],
+    "Id": 6,
+    "ModelName": "nissan"
+  },
+  {
+    "BookedDates": [
+      "2018-10-23T00:00:00",
+      "2018-10-24T00:00:00",
+      "2018-10-25T00:00:00",
+      "2018-10-26T00:00:00"
+    ],
+    "Id": 7,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [],
+    "Id": 8,
+    "ModelName": "toyota"
+  },
+  {
+    "BookedDates": [
+      "2018-10-23T00:00:00",
+      "2018-10-24T00:00:00"
+    ],
+    "Id": 9,
+    "ModelName": "nissan"
+  }
+]

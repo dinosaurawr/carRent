@@ -9,6 +9,8 @@ namespace ClassLibrary1
     //поменять кар на айди и искать по айди машину в репо (done)
     public class CarManager
     {
+
+        public static string path = @"C:\Users\Alexander\Desktop\cars\ClassLibrary1\ClassLibrary1\data.txt";
         private readonly ICarRepository carRepo;
         public CarManager(ICarRepository repo)
         {
@@ -22,7 +24,6 @@ namespace ClassLibrary1
                 throw new ArgumentException();
             }
             
-
             List<DateTime> allDates = new List<DateTime>();
 
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
@@ -49,14 +50,13 @@ namespace ClassLibrary1
 
         public List<string> GetCarsNotBookedOnThisDates(List<DateTime> dates)
         {
-            List<string> cars = new List<string>();
-            int[] IDs = carRepo.GetAllIDs();
-            foreach (int id in IDs)
-            {
-                Car car = carRepo.GetCarById(id);
+            List<string> carsString = new List<string>();
 
-                if (!this.IsBooked(id, dates)) {
-                    cars.Add($"Id:{id}\nmodel:{car.ModelName}");
+            foreach (var car in carRepo.Deserialize(carRepo.ReadData(path)))
+            {
+                if (!IsBooked(car.Id, dates))
+                {
+                    carsString.Add($"Id: {car.Id}\nModel name: {car.ModelName}");
                 }
                 else
                 {
@@ -64,40 +64,27 @@ namespace ClassLibrary1
                 }
                 
             }
-            return cars;
+
+            return carsString;
         }
-
-        public List<DateTime> GetCrossingDates(int carId, List<DateTime> datesFromUser)
-        {
-            Car car = carRepo.GetCarById(carId);
-            var crossings = datesFromUser.Intersect(car.BookedDates).ToList();
-
-            return crossings;
-        }
-
 
         public void RentCarForDates(int carId, List<DateTime> dates)
         {
-             var car = carRepo.GetCarById(carId);
+            List<Car> cars = carRepo.Deserialize(carRepo.ReadData(path));
+            Car bookedCar = carRepo.GetCarById(carId);
 
-            if (!IsBooked(carId, dates))
+            foreach (var car in cars)
             {
-                foreach (var date in dates)
+                if (car.Id == bookedCar.Id)
                 {
-                    car.BookedDates.Add(date);
-                }
-                carRepo.Update(car);
-                Console.WriteLine("car booked");
-            }
-            else
-            {
-                List<DateTime> crossings = GetCrossingDates(carId, dates);
-                Console.WriteLine("Car is booked on this dates:");
-                foreach (var date in crossings)
-                {
-                    Console.WriteLine(date.ToShortDateString());
+                    foreach(var date in dates)
+                    {
+                        car.BookedDates.Add(date);
+                    }
                 }
             }
+
+            carRepo.UpdateData(carRepo.Serialize(cars), path);
         }
 
     }

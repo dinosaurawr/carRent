@@ -8,12 +8,15 @@ namespace ClassLibrary1
 {
     public interface ICarRepository
     {
-        void AddCarToList(int id, string modelName);
-        void DeleteCar(int id);
-        int[] GetAllIDs();
+        void AddCarToList(Car car);
+        void DeleteCarFromList(Car car);
+
         Car GetCarById(int id);
-        void SerializeAndWrite(List<Car> cars);
-        List<Car> DeserializeAndGetList();
-        void Update(Car car);
+
+        string ReadData(string path);
+        void UpdateData(string newData, string path);
+
+        string Serialize(List<Car> cars);
+        List<Car> Deserialize(string json);
     }
 }

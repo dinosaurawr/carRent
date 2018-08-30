@@ -9,57 +9,63 @@ using Newtonsoft.Json;
 namespace ClassLibrary1
 {
     public class LocalRepo : ICarRepository
-    {
-        private readonly string path = @"C:\Users\Alexander\Desktop\cars\ClassLibrary1\ClassLibrary1\data.txt";
+    { 
 
-        public void AddCarToList(int id, string modelName)
+        public void AddCarToList(Car car)
         {
-            List<Car> cars = DeserializeAndGetList();
-            cars.Add(new Car(id, modelName));
-            this.SerializeAndWrite(cars);
+            string data = this.ReadData(CarManager.path);
+            List<Car> cars = this.Deserialize(data);
+
+            cars.Add(car);
+
+            this.UpdateData(this.Serialize(cars), CarManager.path);
         }
 
-        public void DeleteCar(int id)
+        public void DeleteCarFromList(Car car)
         {
-            List<Car> cars = DeserializeAndGetList();
-            cars.Remove(this.GetCarById(id));
-            this.SerializeAndWrite(cars);
+            string data = this.ReadData(CarManager.path);
+            List<Car> cars = this.Deserialize(data);
+
+            cars.Remove(car);
+
+            this.UpdateData(this.Serialize(cars), CarManager.path);
         }
 
         public Car GetCarById(int id)
         {
-            return this.DeserializeAndGetList().FirstOrDefault(c => c.Id == id);
+            string data = this.ReadData(CarManager.path);
+            List<Car> cars = this.Deserialize(data);
+
+            return cars.FirstOrDefault(c => c.Id == id);
         }
 
-        public int[] GetAllIDs()
-        {
-            return this.DeserializeAndGetList().Select(t => t.Id).ToArray();
-        }
-
-        public void SerializeAndWrite(List<Car> cars)
-        {
-            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
-            {
-                sw.WriteLine(JsonConvert.SerializeObject(cars));
-            }
-        }
-
-        public List<Car> DeserializeAndGetList()
+        public string ReadData(string path)
         {
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
-                List<Car> cars = JsonConvert.DeserializeObject<List<Car>>(sr.ReadToEnd());
-
-                return cars;
+                return sr.ReadToEnd();
             }
-  
         }
 
-        public void Update(Car car)
+        public void UpdateData(string newData, string path)
         {
-            List<Car> cars = this.DeserializeAndGetList();
-            Car toReplace = cars.FirstOrDefault(c => c.Id == car.Id);
-            toReplace.BookedDates = car.BookedDates;
+            using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+            {
+                sw.WriteLine(newData);
+            }
         }
+
+        public string Serialize(List<Car> cars)
+        {
+            return JsonConvert.SerializeObject(cars, Formatting.Indented);
+        }
+
+        public List<Car> Deserialize(string json)
+        {
+            return JsonConvert.DeserializeObject<List<Car>>(json);
+        }
+
+        
+        
     }
 }

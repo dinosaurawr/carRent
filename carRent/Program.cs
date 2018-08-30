@@ -14,22 +14,22 @@ namespace carRent
             ICarRepository carRepo = new LocalRepo();
             CarManager carManager = new CarManager(carRepo);
 
-            //debug method
-            void FillWithCars()
-            {
-                Random rnd = new Random();
-                string[] carModelNames = new string[5] { "nissan", "toyota", "land rover", "tesla", "volkswagen" };
-                List<Car> cars = new List<Car>();
+            ////debug method
+            //void FillWithCars()
+            //{
+            //    Random rnd = new Random();
+            //    string[] carModelNames = new string[5] { "nissan", "toyota", "land rover", "tesla", "volkswagen" };
+            //    List<Car> cars = new List<Car>();
 
-                for (int i = 1; i < 10; i++)
-                {
-                    cars.Add(new Car(i, carModelNames[rnd.Next(0, 4)]));
-                }
+            //    for (int i = 1; i < 10; i++)
+            //    {
+            //        cars.Add(new Car(i, carModelNames[rnd.Next(0, 4)]));
+            //    }
 
-                carRepo.SerializeAndWrite(cars);
-            }
-            //calling debug method
-            FillWithCars();
+            //    carRepo.SerializeAndWrite(cars);
+            //}
+            ////calling debug method
+            //FillWithCars();
 
             do
             {
