@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary1;
+using System.Reflection;
 
 namespace carRent
 {
@@ -11,7 +13,7 @@ namespace carRent
     {
         static void Main(string[] args)
         {
-            ICarRepository carRepo = new LocalRepo();
+            ICarRepository carRepo = new LocalRepo(Directory.GetCurrentDirectory());
             CarManager carManager = new CarManager(carRepo);
 
             ////debug method
@@ -30,6 +32,8 @@ namespace carRent
             //}
             ////calling debug method
             //FillWithCars();
+
+            
 
             do
             {

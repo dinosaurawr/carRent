@@ -8,6 +8,7 @@ namespace ClassLibrary1
 {
     public interface ICarRepository
     {
+        string path { get; set; }
         void AddCarToList(Car car);
         void DeleteCarFromList(Car car);
 

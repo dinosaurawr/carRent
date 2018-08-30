@@ -9,33 +9,43 @@ using Newtonsoft.Json;
 namespace ClassLibrary1
 {
     public class LocalRepo : ICarRepository
-    { 
+    {
+        public string path { get; set; }
+
+        public LocalRepo(string _path)
+        {
+            path = _path + @"\data.txt";
+        }
 
         public void AddCarToList(Car car)
         {
-            string data = this.ReadData(CarManager.path);
+
+            //reading and deserialize from file
+            string data = this.ReadData(path);
             List<Car> cars = this.Deserialize(data);
-
+            //adding car to a new list
             cars.Add(car);
-
-            this.UpdateData(cars, CarManager.path);
+            //rewriting old data file
+            this.UpdateData(cars, path);
         }
 
         public void DeleteCarFromList(Car car)
         {
-            string data = this.ReadData(CarManager.path);
+            //reading and deserializing to a new list
+            string data = this.ReadData(path);
             List<Car> cars = this.Deserialize(data);
-
+            //removing from a new list
             cars.Remove(car);
-
-            this.UpdateData(cars, CarManager.path);
+            //rewrite old data file
+            this.UpdateData(cars, path);
         }
 
         public Car GetCarById(int id)
         {
-            string data = this.ReadData(CarManager.path);
+            //reading and deserializing ti a list
+            string data = this.ReadData(path);
             List<Car> cars = this.Deserialize(data);
-
+            //searching for a car with specified id
             return cars.FirstOrDefault(c => c.Id == id);
         }
 
@@ -43,20 +53,27 @@ namespace ClassLibrary1
         {
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
-                return sr.ReadToEnd();
+                if (File.Exists(path))
+                {
+                    return sr.ReadToEnd();
+                }
+                else
+                {
+                    File.Create(path);
+                    return sr.ReadToEnd();
+                }
+                
             }
         }
 
         public void UpdateData(List<Car> newList, string path)
         {
-            var oldList = this.Deserialize(this.ReadData(path));
-
-            var union = newList.Union(oldList).ToList();
-
-            string toWrite = this.Serialize(union);
-
+            //serializing list which we will write to data file
+            string toWrite = this.Serialize(newList);
+            File.Create(path);
+            //rewriting existing or creating a new data file if not exist
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
-            {
+            { 
                 sw.WriteLine(toWrite);
             }
         }

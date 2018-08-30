@@ -10,7 +10,6 @@ namespace ClassLibrary1
     public class CarManager
     {
 
-        public static string path = @"C:\Users\Alexander\Desktop\cars\ClassLibrary1\ClassLibrary1\data.txt";
         private readonly ICarRepository carRepo;
         public CarManager(ICarRepository repo)
         {
@@ -52,7 +51,7 @@ namespace ClassLibrary1
         {
             List<string> carsString = new List<string>();
 
-            foreach (var car in carRepo.Deserialize(carRepo.ReadData(path)))
+            foreach (var car in carRepo.Deserialize(carRepo.ReadData(carRepo.path)))
             {
                 if (!IsBooked(car.Id, dates))
                 {
@@ -70,7 +69,7 @@ namespace ClassLibrary1
 
         public void RentCarForDates(int carId, List<DateTime> dates)
         {
-            List<Car> cars = carRepo.Deserialize(carRepo.ReadData(path));
+            List<Car> cars = carRepo.Deserialize(carRepo.ReadData(carRepo.path));
             Car bookedCar = carRepo.GetCarById(carId);
 
             foreach (var car in cars)
@@ -84,7 +83,7 @@ namespace ClassLibrary1
                 }
             }
 
-            carRepo.UpdateData(cars, path);
+            carRepo.UpdateData(cars, carRepo.path);
         }
 
     }
