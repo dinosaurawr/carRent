@@ -59,7 +59,8 @@ namespace ClassLibrary1
                 }
                 else
                 {
-                    File.Create(path);
+                    var fs = File.Create(path);
+                    fs.Close();
                     return sr.ReadToEnd();
                 }
                 
@@ -70,7 +71,8 @@ namespace ClassLibrary1
         {
             //serializing list which we will write to data file
             string toWrite = this.Serialize(newList);
-            File.Create(path);
+            var fs = File.Create(path);
+            fs.Close();
             //rewriting existing or creating a new data file if not exist
             using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
             { 
