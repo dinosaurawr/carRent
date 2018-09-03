@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,9 +36,10 @@ namespace ClassLibrary1
         
         public bool IsBooked(int carId, List<DateTime> datesFromUser)
         {
-            Car car = carRepo.GetCarById(carId);
+            var car = carRepo.GetCarById(carId);
+            var carDatesList = car.GetListOfDates();
 
-            if (datesFromUser.Intersect(car.BookedDates).ToList().Any())
+            if (carDatesList.Intersect(datesFromUser).Any())
             {
                 return true;
             }
@@ -45,13 +47,14 @@ namespace ClassLibrary1
             {
                 return false;
             }
+
         }
 
         public List<string> GetCarsNotBookedOnThisDates(List<DateTime> dates)
         {
             List<string> carsString = new List<string>();
 
-            foreach (var car in carRepo.Deserialize(carRepo.ReadData(carRepo.path)))
+            foreach (var car in carRepo.GetAllCars())
             {
                 if (!IsBooked(car.Id, dates))
                 {
@@ -69,21 +72,15 @@ namespace ClassLibrary1
 
         public void RentCarForDates(int carId, List<DateTime> dates)
         {
-            List<Car> cars = carRepo.Deserialize(carRepo.ReadData(carRepo.path));
-            Car bookedCar = carRepo.GetCarById(carId);
-
-            foreach (var car in cars)
+            using (CarContext db = new CarContext())
             {
-                if (car.Id == bookedCar.Id)
+                if (!IsBooked(carId, dates))
                 {
-                    foreach(var date in dates)
-                    {
-                        car.BookedDates.Add(date);
-                    }
+                    db.Cars.Find(carId).BookedDates += JsonConvert.SerializeObject(dates);
+                    carRepo.Update();
+                    db.SaveChanges();
                 }
             }
-
-            carRepo.UpdateData(cars, carRepo.path);
         }
 
     }

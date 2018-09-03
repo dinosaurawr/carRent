@@ -30,10 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,14 +50,64 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarContext.cs" />
     <Compile Include="CarManager.cs" />
     <Compile Include="Car.cs" />
+    <Compile Include="DBRepo.cs" />
     <Compile Include="ICarRepository.cs" />
     <Compile Include="LocalRepo.cs" />
+    <Compile Include="Migrations\201809012218005_InitialCreate.cs" />
+    <Compile Include="Migrations\201809012218005_InitialCreate.Designer.cs">
+      <DependentUpon>201809012218005_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809031818200_AddSerialisingList.cs" />
+    <Compile Include="Migrations\201809031818200_AddSerialisingList.Designer.cs">
+      <DependentUpon>201809031818200_AddSerialisingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809032002091_second.cs" />
+    <Compile Include="Migrations\201809032002091_second.Designer.cs">
+      <DependentUpon>201809032002091_second.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809032054279_third.cs" />
+    <Compile Include="Migrations\201809032054279_third.Designer.cs">
+      <DependentUpon>201809032054279_third.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809032137516_fourth.cs" />
+    <Compile Include="Migrations\201809032137516_fourth.Designer.cs">
+      <DependentUpon>201809032137516_fourth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809032139186_fifth.cs" />
+    <Compile Include="Migrations\201809032139186_fifth.Designer.cs">
+      <DependentUpon>201809032139186_fifth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809012218005_InitialCreate.resx">
+      <DependentUpon>201809012218005_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809031818200_AddSerialisingList.resx">
+      <DependentUpon>201809031818200_AddSerialisingList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809032002091_second.resx">
+      <DependentUpon>201809032002091_second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809032054279_third.resx">
+      <DependentUpon>201809032054279_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809032137516_fourth.resx">
+      <DependentUpon>201809032137516_fourth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809032139186_fifth.resx">
+      <DependentUpon>201809032139186_fifth.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

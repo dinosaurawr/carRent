@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace ClassLibrary1
 {
-    public class LocalRepo : ICarRepository
+    public class LocalRepo
     {
         public string path { get; set; }
 
