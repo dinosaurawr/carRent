@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace ClassLibrary
 {
-    //поменять кар на айди и искать по айди машину в репо (done)
     public class CarManager
     {
 
